@@ -141,6 +141,10 @@ public class FileCopyTask implements Runnable {
 		final int _1KB = 1024;
 		final int _4KB = 1024 * 4;
 		final int _64KB = 1024 * 64;
+		final int _128KB = 1024 * 128;
+		final int _256KB = 1024 * 256;
+		final int _512KB = 1024 * 512;
+		final int _5000KB = 1024 * 5000;
 		final int charSize = 20_000;
 
 		TaskTimer taskTimer = new TaskTimer();
@@ -188,6 +192,50 @@ public class FileCopyTask implements Runnable {
 				return "Copy file 64 kilobyte at a time.";
 			}
 		};
+		FileCopyTask task128KB = new FileCopyTask(inputFilename, outputFilename) {
+			@Override
+			public void run() {
+				FileUtil.copy(in, out, _128KB);
+			}
+
+			@Override
+			public String toString() {
+				return "Copy file 128 kilobyte at a time.";
+			}
+		};
+		FileCopyTask task256KB = new FileCopyTask(inputFilename, outputFilename) {
+			@Override
+			public void run() {
+				FileUtil.copy(in, out, _256KB);
+			}
+
+			@Override
+			public String toString() {
+				return "Copy file 256 kilobyte at a time.";
+			}
+		};
+		FileCopyTask task512KB = new FileCopyTask(inputFilename, outputFilename) {
+			@Override
+			public void run() {
+				FileUtil.copy(in, out, _512KB);
+			}
+
+			@Override
+			public String toString() {
+				return "Copy file 512 kilobyte at a time.";
+			}
+		};
+		FileCopyTask task5000KB = new FileCopyTask(inputFilename, outputFilename) {
+			@Override
+			public void run() {
+				FileUtil.copy(in, out, _5000KB);
+			}
+
+			@Override
+			public String toString() {
+				return "Copy file 5000 kilobyte at a time.";
+			}
+		};
 		FileCopyTask taskLine = new FileCopyTask(inputFilename, outputFilename) {
 			@Override
 			public void run() {
@@ -207,14 +255,19 @@ public class FileCopyTask implements Runnable {
 
 			@Override
 			public String toString() {
-				return "Copy file 20,000 char at a time.";
+				return "Copy file " + charSize + " char(s) at a time.";
 			}
 		};
-		// taskTimer.measureAndPrint(oneByte);
+
+		taskTimer.measureAndPrint(oneByte);
 		taskTimer.measureAndPrint(task1KB);
 		taskTimer.measureAndPrint(task4KB);
 		taskTimer.measureAndPrint(task64KB);
+		taskTimer.measureAndPrint(task128KB);
+		taskTimer.measureAndPrint(task256KB);
+		taskTimer.measureAndPrint(task512KB);
+		taskTimer.measureAndPrint(task5000KB);
 		taskTimer.measureAndPrint(taskLine);
-		 taskTimer.measureAndPrint(taskChar);
+		taskTimer.measureAndPrint(taskChar);
 	}
 }

@@ -23,6 +23,7 @@ public class FileUtil {
 			int readByte;
 			try {
 				while ((readByte = in.read()) != -1) {
+
 					out.write(readByte);
 				}
 			} finally {
@@ -35,7 +36,7 @@ public class FileUtil {
 	}
 
 	/**
-	 * Copy file with a specific block-size.
+	 * Copy file with a specific bytes at a time.
 	 * 
 	 * @param in
 	 *            is the InputStream of the file to be read
@@ -62,12 +63,12 @@ public class FileUtil {
 	}
 
 	/**
-	 * Copy file using BufferedReader and PrintWriter.
+	 * Copy file one line at a time using BufferedReader and PrintWriter.
 	 * 
 	 * @param in
-	 *            is the InputStream used for reading.
+	 *            is the InputStream used for reading
 	 * @param out
-	 *            is the OutputStream used for writing.
+	 *            is the OutputStream used for writing
 	 */
 	public static void bcopy(InputStream in, OutputStream out) {
 		try {
@@ -87,6 +88,17 @@ public class FileUtil {
 		}
 	}
 
+	/**
+	 * Copy file with a specific number of characters using BufferedReader and
+	 * PrintWriter.
+	 * 
+	 * @param in
+	 *            is the InputStream used for reading
+	 * @param out
+	 *            is the OutputStream used for writing
+	 * @param blocksize
+	 *            is the size of char array to be read at a time
+	 */
 	public static void ccopy(InputStream in, OutputStream out, int blocksize) {
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
